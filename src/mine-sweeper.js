@@ -23,9 +23,34 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function minesweeper(matrix) {
+  // create a final field with numbers
+  const field = [];
+  for (let i = 0; i < matrix.length; i++) {
+    const row = [];
+    for (let j = 0; j < matrix[i].length; j++) {
+      row.push(0);
+    }
+    field.push(row)
+  }
+  console.log(field);
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      // matrix[i]
+      if (matrix[i] && matrix[i][j - 1]) field[i][j] += 1;
+      if (matrix[i] && matrix[i][j + 1]) field[i][j] += 1;
+      // matrix[i + 1]
+      if (matrix[i + 1] && matrix[i + 1][j - 1]) field[i][j] += 1;
+      if (matrix[i + 1] && matrix[i + 1][j + 1]) field[i][j] += 1;
+      if (matrix[i + 1] && matrix[i + 1][j]) field[i][j] += 1;
+      // matrix[i - 1]
+      if (matrix[i - 1] && matrix[i - 1][j + 1]) field[i][j] += 1;
+      if (matrix[i - 1] && matrix[i - 1][j - 1]) field[i][j] += 1;
+      if (matrix[i - 1] && matrix[i - 1][j]) field[i][j] += 1;
+    }
+    console.log(`${field[i].join(' ')}`);
+  }
+  return field;
 }
 
 module.exports = {
